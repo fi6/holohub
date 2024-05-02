@@ -1,0 +1,41 @@
+%YAML 1.2
+# SPDX-FileCopyrightText: Copyright (c) 2022-2023 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+---
+extensions:
+- gxf_extensions/lstm_tensor_rt_inference/libgxf_lstm_tensor_rt_inference.so
+- gxf_extensions/yuan_qcap/libgxf_qcap_source.so
+
+aja:
+  width: 1920
+  height: 1080
+  overlay_rdma: true
+  rdma: true
+  enable_overlay: false
+
+recorder_format_converter:
+  in_dtype: "rgba8888"
+  out_dtype: "rgb888"
+
+recorder:
+  directory: "/tmp"
+  basename: "tensor"
+
+holoviz:
+  tensors:
+    - name: ""
+      type: color
+      opacity: 1.0
+      priority: 0

@@ -1,0 +1,46 @@
+{
+	"application": {
+		"name": "AJA Recorder",
+		"authors": [
+			{
+				"name": "Yida Niu",
+				"affiliation": "Peking University"
+			}
+		],
+		"language": "Python",
+		"version": "1.0",
+		"changelog": {
+			"1.0": "Initial Release"
+		},
+		"holoscan_sdk": {
+			"minimum_required_version": "1.0.3",
+			"tested_versions": [
+				"1.0.3"
+			]
+		},
+		"platforms": [
+			"amd64",
+			"arm64"
+		],
+		"tags": [
+			"Recorder",
+			"AJA"
+		],
+		"ranking": 1,
+		"dependencies": {
+			// "data": [
+			// 		{
+			// 				"name": "Holoscan Sample App Data for AI-based Endoscopy Tool Tracking",
+			// 				"description": "This resource contains the convolutional LSTM model for tool tracking in laparoscopic videos by Nwoye et. al [1], and a sample surgical video.",
+			// 				"url": "https://catalog.ngc.nvidia.com/orgs/nvidia/teams/clara-holoscan/resources/holoscan_endoscopy_sample_data",
+			// 				"version": "20230222"
+			// 		}
+			// ]
+		},
+		"run": {
+			"command": "python3 <holohub_app_source>/aja_recorder.py",
+			"workdir": "holohub_bin"
+		}
+	}
+}
+
