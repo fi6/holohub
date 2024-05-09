@@ -16,6 +16,7 @@
 ---
 source:
   device: "/dev/video0"
+  pixel_format: "AR24"
 
 preprocessor:
   out_tensor_name: preprocessed
