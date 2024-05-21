@@ -74,6 +74,8 @@ class VideoRecorder(Application):
             source_block_size = width * height * 4 * 4
             source_num_blocks = 3 if rdma else 4
         elif self.source.lower() == "v4l2":
+            width = 1920
+            height = 1080
             v4l2_kwargs = self.kwargs("v4l2")
             source = V4L2VideoCaptureOp(self, name="v4l2", allocator=unbounded_pool, **v4l2_kwargs)
         else:
