@@ -60,7 +60,6 @@ class VideoRecorder(Application):
         self.source = source
 
     def compose(self):
-        source = None
         unbounded_pool = UnboundedAllocator(self, name="pool")
 
         if self.source.lower() == "aja":
@@ -73,11 +72,13 @@ class VideoRecorder(Application):
             rdma = aja_kwargs["rdma"]
             source_block_size = width * height * 4 * 4
             source_num_blocks = 3 if rdma else 4
+            output_label = "video_buffer_output"
         elif self.source.lower() == "v4l2":
             width = 1920
             height = 1080
             v4l2_kwargs = self.kwargs("v4l2")
             source = V4L2VideoCaptureOp(self, name="v4l2", allocator=unbounded_pool, **v4l2_kwargs)
+            output_label = "signal"
         else:
             raise ValueError("source must be 'aja' or 'v4l2'")
 
@@ -130,12 +131,12 @@ class VideoRecorder(Application):
         self.add_flow(
             source,
             visualizer,
-            {("video_buffer_output", "receivers")},
+            {(output_label, "receivers")},
         )
         self.add_flow(
             source,
             recorder_format_converter,
-            {("video_buffer_output", "source_video")},
+            {(output_label, "source_video")},
         )
         self.add_flow(recorder_format_converter, recorder)
 
