@@ -146,14 +146,14 @@ class VideoRecorder(Application):
             visualizer,
             {(output_label, "receivers")},
         )
-        # self.add_flow(
-        #     source,
-        #     recorder_format_converter,
-        #     {(output_label, "source_video")},
-        # )
         self.add_flow(
-            visualizer, recorder_format_converter, {("render_buffer_output", "source_video")}
+            source,
+            recorder_format_converter,
+            {(output_label, "source_video")},
         )
+        # self.add_flow(
+        #     visualizer, recorder_format_converter, {("render_buffer_output", "source_video")}
+        # )
         self.add_flow(recorder_format_converter, recorder)
 
 
