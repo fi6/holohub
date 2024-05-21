@@ -86,7 +86,7 @@ class VideoRecorder(Application):
             source = VideoStreamReplayerOp(
                 self,
                 name="replayer",
-                video_dir=self.video_dir,
+                directory=self.video_dir,
                 **self.kwargs("replayer"),
             )
             output_label="output"
