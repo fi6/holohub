@@ -19,6 +19,7 @@ from argparse import ArgumentParser
 from holoscan.core import Application
 from holoscan.operators import (
     AJASourceOp,
+    V4L2VideoCaptureOp,
     FormatConverterOp,
     HolovizOp,
     VideoStreamRecorderOp,
@@ -32,7 +33,7 @@ from holoscan.resources import (
 )
 
 
-class AJARecorder(Application):
+class VideoRecorder(Application):
     def __init__(self):
         """Initialize the endoscopy tool tracking application
 
@@ -49,7 +50,7 @@ class AJARecorder(Application):
         super().__init__()
 
         # set name
-        self.name = "AJA Recorder App"
+        self.name = "Video Recorder App"
 
         # Optional parameters affecting the graph created by compose.
         self.record_type = "input"
@@ -59,7 +60,8 @@ class AJARecorder(Application):
         self.source = "aja"
 
     def compose(self):
-        rdma = False
+        source = None
+        unbounded_pool = UnboundedAllocator(self, name="pool")
 
         if self.source.lower() == "aja":
             aja_kwargs = self.kwargs("aja")
@@ -71,20 +73,29 @@ class AJARecorder(Application):
             rdma = aja_kwargs["rdma"]
             source_block_size = width * height * 4 * 4
             source_num_blocks = 3 if rdma else 4
+        elif self.source.lower() == "v4l2":
+            v4l2_kwargs = self.kwargs("v4l2")
+            source = V4L2VideoCaptureOp(self, name="v4l2", allocator=unbounded_pool, **v4l2_kwargs)
         else:
-            raise ValueError("source must be 'aja'")
+            raise ValueError("source must be 'aja' or 'v4l2'")
 
-        source_pool_kwargs = dict(
-            storage_type=MemoryStorageType.DEVICE,
-            block_size=source_block_size,
-            num_blocks=source_num_blocks,
-        )
-        assert self.record_type == "input"
+        # source_pool_kwargs = dict(
+        #     storage_type=MemoryStorageType.DEVICE,
+        #     block_size=source_block_size,
+        #     num_blocks=source_num_blocks,
+        # )
+
+        # recorder_format_converter = FormatConverterOp(
+        #     self,
+        #     name="recorder_format_converter",
+        #     pool=BlockMemoryPool(self, name="pool", **source_pool_kwargs),
+        #     **self.kwargs("recorder_format_converter"),
+        # )
 
         recorder_format_converter = FormatConverterOp(
             self,
             name="recorder_format_converter",
-            pool=BlockMemoryPool(self, name="pool", **source_pool_kwargs),
+            pool=unbounded_pool,
             **self.kwargs("recorder_format_converter"),
         )
         recorder = VideoStreamRecorderOp(name="recorder", fragment=self, **self.kwargs("recorder"))
@@ -169,6 +180,6 @@ if __name__ == "__main__":
     else:
         config_file = args.config
 
-    app = AJARecorder()
+    app = VideoRecorder()
     app.config(config_file)
     app.run()

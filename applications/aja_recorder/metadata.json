@@ -28,14 +28,8 @@
 		],
 		"ranking": 1,
 		"dependencies": {
-			// "data": [
-			// 		{
-			// 				"name": "Holoscan Sample App Data for AI-based Endoscopy Tool Tracking",
-			// 				"description": "This resource contains the convolutional LSTM model for tool tracking in laparoscopic videos by Nwoye et. al [1], and a sample surgical video.",
-			// 				"url": "https://catalog.ngc.nvidia.com/orgs/nvidia/teams/clara-holoscan/resources/holoscan_endoscopy_sample_data",
-			// 				"version": "20230222"
-			// 		}
-			// ]
+			"data": [
+			]
 		},
 		"run": {
 			"command": "python3 <holohub_app_source>/aja_recorder.py",

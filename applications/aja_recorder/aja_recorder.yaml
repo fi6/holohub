@@ -14,16 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 ---
-extensions:
-- gxf_extensions/lstm_tensor_rt_inference/libgxf_lstm_tensor_rt_inference.so
-- gxf_extensions/yuan_qcap/libgxf_qcap_source.so
-
 aja:
   width: 1920
   height: 1080
-  overlay_rdma: true
-  rdma: true
+  overlay_rdma: false
+  rdma: false
   enable_overlay: false
+
+v4l2:
+  device: "/dev/video0"
+  pixel_format: "AR24"
 
 recorder_format_converter:
   in_dtype: "rgba8888"
