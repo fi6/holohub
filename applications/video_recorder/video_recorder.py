@@ -58,7 +58,9 @@ class VideoRecorder(Application):
             if record_type not in ("input", "visualizer"):
                 raise ValueError("record_type must be either ('input' or 'visualizer')")
         self.source = source
-        self.video_dir = self.kwargs("recorder")["directory"]
+        self.video_dir = self.kwargs("recorder").get("directory", "../data/video_recorder")
+        if not os.path.exists(self.video_dir):
+            os.makedirs(self.video_dir)
 
     def compose(self):
         unbounded_pool = UnboundedAllocator(self, name="pool")
