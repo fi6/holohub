@@ -34,7 +34,7 @@ from holoscan.resources import (
 
 
 class VideoRecorder(Application):
-    def __init__(self, source="replayer"):
+    def __init__(self, source="v4l2"):
         """Initialize the endoscopy tool tracking application
 
         Parameters
@@ -82,6 +82,14 @@ class VideoRecorder(Application):
             height = v4l2_kwargs.get("height", 1080)
             source = V4L2VideoCaptureOp(self, name="v4l2", allocator=unbounded_pool, **v4l2_kwargs)
             output_label = "signal"
+        elif self.source.lower() == "replayer":
+            source = VideoStreamReplayerOp(
+                self,
+                name="replayer",
+                video_dir=self.video_dir,
+                **self.kwargs("replayer"),
+            )
+            output_label="output"
         else:
             raise ValueError("source must be 'aja' or 'v4l2'")
 
