@@ -146,6 +146,9 @@ class VideoRecorder(Application):
             visualizer,
             {(output_label, "receivers")},
         )
+        if self.source == "replayer":
+            # do not add extra save flow for replayer
+            return
         self.add_flow(
             source,
             recorder_format_converter,
