@@ -58,6 +58,7 @@ class VideoRecorder(Application):
             if record_type not in ("input", "visualizer"):
                 raise ValueError("record_type must be either ('input' or 'visualizer')")
         self.source = source
+        self.video_dir = self.kwargs("recorder")["directory"]
 
     def compose(self):
         unbounded_pool = UnboundedAllocator(self, name="pool")
@@ -179,7 +180,7 @@ if __name__ == "__main__":
         record_type = None
 
     if args.config == "none":
-        config_file = os.path.join(os.path.dirname(__file__), "aja_recorder.yaml")
+        config_file = os.path.join(os.path.dirname(__file__), "video_recorder.yaml")
     else:
         config_file = args.config
 

@@ -30,8 +30,8 @@ recorder_format_converter:
   out_dtype: "rgb888"
 
 recorder:
-  directory: "/tmp"
-  basename: "tensor"
+  directory: "../data/video_recorder"
+  basename: "video"
 
 holoviz:
   tensors:

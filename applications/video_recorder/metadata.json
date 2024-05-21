@@ -1,6 +1,6 @@
 {
 	"application": {
-		"name": "AJA Recorder",
+		"name": "Video Recorder",
 		"authors": [
 			{
 				"name": "Yida Niu",
@@ -24,7 +24,8 @@
 		],
 		"tags": [
 			"Recorder",
-			"AJA"
+			"AJA",
+			"V4L2"
 		],
 		"ranking": 1,
 		"dependencies": {
@@ -32,7 +33,7 @@
 			]
 		},
 		"run": {
-			"command": "python3 <holohub_app_source>/aja_recorder.py",
+			"command": "python3 <holohub_app_source>/video_recorder.py",
 			"workdir": "holohub_bin"
 		}
 	}
