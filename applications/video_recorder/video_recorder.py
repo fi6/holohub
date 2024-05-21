@@ -83,13 +83,15 @@ class VideoRecorder(Application):
             source = V4L2VideoCaptureOp(self, name="v4l2", allocator=unbounded_pool, **v4l2_kwargs)
             output_label = "signal"
         elif self.source.lower() == "replayer":
+            width = 1920
+            height = 1080
             source = VideoStreamReplayerOp(
                 self,
                 name="replayer",
                 directory=self.video_dir,
                 **self.kwargs("replayer"),
             )
-            output_label="output"
+            output_label = "output"
         else:
             raise ValueError("source must be 'aja' or 'v4l2'")
 
