@@ -34,7 +34,7 @@ from holoscan.resources import (
 
 
 class VideoRecorder(Application):
-    def __init__(self):
+    def __init__(self, source="replayer"):
         """Initialize the endoscopy tool tracking application
 
         Parameters
@@ -57,7 +57,7 @@ class VideoRecorder(Application):
         if record_type is not None:
             if record_type not in ("input", "visualizer"):
                 raise ValueError("record_type must be either ('input' or 'visualizer')")
-        self.source = "aja"
+        self.source = source
 
     def compose(self):
         source = None
@@ -180,6 +180,6 @@ if __name__ == "__main__":
     else:
         config_file = args.config
 
-    app = VideoRecorder()
+    app = VideoRecorder(source=args.source)
     app.config(config_file)
     app.run()
