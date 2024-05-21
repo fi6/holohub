@@ -77,9 +77,9 @@ class VideoRecorder(Application):
             source_num_blocks = 3 if rdma else 4
             output_label = "video_buffer_output"
         elif self.source.lower() == "v4l2":
-            width = 1920
-            height = 1080
             v4l2_kwargs = self.kwargs("v4l2")
+            width = v4l2_kwargs.get("width", 1920)
+            height = v4l2_kwargs.get("height", 1080)
             source = V4L2VideoCaptureOp(self, name="v4l2", allocator=unbounded_pool, **v4l2_kwargs)
             output_label = "signal"
         else:

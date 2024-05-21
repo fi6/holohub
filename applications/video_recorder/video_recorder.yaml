@@ -22,6 +22,8 @@ aja:
   enable_overlay: false
 
 v4l2:
+  width: 1920
+  height: 1080
   device: "/dev/video0"
   pixel_format: "AR24"
 
