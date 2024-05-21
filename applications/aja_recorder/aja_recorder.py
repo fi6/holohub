@@ -151,8 +151,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "-s",
         "--source",
-        choices=["replayer", "aja", "yuan"],
-        default="replayer",
+        choices=["v4l2", "aja", "replayer"],
+        default="v4l2",
         help=(
             "If 'replayer', replay a prerecorded video. Otherwise use a "
             "capture card as the source (default: %(default)s)."
